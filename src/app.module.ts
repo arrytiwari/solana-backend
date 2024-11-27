@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // Makes ConfigModule available globally
+      envFilePath: '.env',
     }),
     ScheduleModule.forRoot(),
     TransactionsModule,

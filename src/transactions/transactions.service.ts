@@ -36,7 +36,8 @@ export class TransactionsService {
   @Cron(CronExpression.EVERY_10_SECONDS)
   async handleCron() {
     const walletAddress = 'EgqxBkbNczXsgBmnkQ6VyKF6qRK446UGMgWhMed1L9c6';
-    const apiKey = '542afb3e-51f1-4d80-aa1e-98c102e81230';
+
+    const apiKey = this.configService.get<string>('HELIUS_API_KEY');
     // const pollInterval =
     //   parseInt(this.configService.get<string>('POLL_INTERVAL')) || 10000;
 
