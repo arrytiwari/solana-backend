@@ -1,99 +1,118 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+```markdown
+# For Solana Backend service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A NestJS backend service that monitors and processes real-time transactions from the Solana blockchain using Helius RPC.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Table of Contents
 
-## Description
+- [Setup](#setup)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Polling Mechanism](#polling-mechanism)
+- [FAQs](#faqs)
+  - [What are some issues that could occur with watching transactions in real-time that then need to be processed downstream? What are some strategies you would use to deal with these issues?](#what-are-some-issues-that-could-occur-with-watching-transactions-in-real-time-that-then-need-to-be-processed-downstream-what-are-some-strategies-you-would-use-to-deal-with-these-issues)
+  - [What is your suggested tech stack / architecture for this service?](#what-is-your-suggested-tech-stack--architecture-for-this-service)
+- [Why Polling Mechanism](#why-polling-mechanism)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Setup
 
-## Project setup
+1. **Clone the Repository**
 
-```bash
-$ npm install
+   ```bash
+   git clone https://github.com/yourusername/solana-transactions-monitor.git
+   cd solana-transactions-monitor
+   ```
+
+2. **Install Dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the Development Server**
+
+   ```bash
+   npm run start:dev
+   ```
+
+## Configuration
+
+- **Set Wallet Address**
+
+  Open the `transactions.service.ts` file and set your desired wallet address on **line 38**:
+
+  ```typescript
+  const walletAddress = 'YOUR_WALLET_ADDRESS_HERE';
+  ```
+
+- **Environment Variables**
+
+  Ensure you have a `.env` file with the following variables:
+
+  ```dotenv
+  HELIUS_API_KEY=your_helius_api_key
+  ```
+
+## Usage
+
+- **Real-Time Transactions**
+
+  The service logs all processed real-time transactions and their history directly in the terminal.
+
+- **Polling Mechanism**
+
+  A polling mechanism is implemented to periodically retrieve and process transaction data from Helius RPC.
+
+## Polling Mechanism
+
+The service uses a polling mechanism to fetch and process transactions at regular intervals, ensuring that real-time data is continuously monitored and updated.
+
+## FAQs
+
+### What are some issues that could occur with watching transactions in real-time that then need to be processed downstream? What are some strategies you would use to deal with these issues?
+
+**Issues:**
+
+1. **High Throughput:** Handling a large number of transactions can overwhelm the system.
+2. **Data Consistency:** Ensuring that all transactions are accurately processed without duplication or loss.
+3. **Latency:** Delays in processing can lead to outdated information.
+4. **Error Handling:** Managing failures in transaction fetching or processing without disrupting the entire system.
+5. **Scalability:** Scaling the system to handle increasing transaction volumes efficiently.
+
+**Strategies:**
+
+1. **Rate Limiting and Throttling:** Control the number of transactions processed per unit time to prevent system overload.
+2. **Reliable Queuing Systems:** Implement message queues (e.g., RabbitMQ, Kafka) to ensure transactions are processed in order and without loss.
+3. **Idempotent Processing:** Design processing logic to handle duplicate transactions gracefully.
+4. **Error Logging and Retries:** Implement robust error handling with retry mechanisms for transient failures.
+5. **Horizontal Scaling:** Distribute the workload across multiple instances or services to manage higher volumes.
+6. **Monitoring and Alerts:** Continuously monitor system performance and set up alerts for anomalies or failures.
+
+### What is your suggested tech stack / architecture for this service?
+
+**Suggested Tech Stack:**
+
+- **Backend Framework:** NestJS for building scalable and maintainable server-side applications.
+- **Blockchain Interaction:** Helius RPC for accessing Solana blockchain data.
+- **Database:** PostgreSQL or MongoDB for storing processed transactions and metadata.
+- **Message Queue:** RabbitMQ or Apache Kafka for handling transaction processing asynchronously.
+- **Real-Time Communication:** WebSockets (e.g., Socket.io) for pushing real-time updates to clients.
+- **Authentication:** JWT or OAuth2 for securing API endpoints.
+- **Monitoring:** Prometheus and Grafana for system monitoring and visualization.
+- **Containerization:** Docker for deploying and managing service instances.
+
+**Architecture Overview:**
+
+1. **API Layer:** NestJS controllers handle incoming requests and route them to services.
+2. **Service Layer:** Services interact with Helius RPC to fetch transactions and process them.
+3. **Processing Layer:** A message queue manages the flow of transactions for asynchronous processing.
+4. **Data Layer:** Processed transactions are stored in a database for persistence and historical queries.
+5. **Real-Time Layer:** WebSockets provide real-time updates to clients about new transactions.
+6. **Monitoring Layer:** Tools like Prometheus monitor system health, while Grafana visualizes metrics.
+
+## Why Polling Mechanism
+
+While WebSockets offer real-time communication by maintaining an open connection between the client and server, a polling mechanism was chosen for this project due to its simplicity and ease of implementation. Polling allows the server to periodically check for new transactions without the overhead of managing persistent connections, making it suitable for scenarios with moderate real-time requirements and simpler infrastructure needs.
+
+---
 ```
-
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
