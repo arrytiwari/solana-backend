@@ -67,7 +67,7 @@ A NestJS backend service that monitors and processes real-time transactions from
 
 The service uses a polling mechanism to fetch and process transactions at regular intervals, ensuring that real-time data is continuously monitored and updated.
 
-## FAQs
+## Additional Design Questions
 
 ### What are some issues that could occur with watching transactions in real-time that then need to be processed downstream? What are some strategies you would use to deal with these issues?
 
