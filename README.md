@@ -9,18 +9,18 @@ A NestJS backend service that monitors and processes real-time transactions from
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Polling Mechanism](#polling-mechanism)
-- [FAQs](#faqs)
+- [Additional design questions]
   - [What are some issues that could occur with watching transactions in real-time that then need to be processed downstream? What are some strategies you would use to deal with these issues?](#what-are-some-issues-that-could-occur-with-watching-transactions-in-real-time-that-then-need-to-be-processed-downstream-what-are-some-strategies-you-would-use-to-deal-with-these-issues)
   - [What is your suggested tech stack / architecture for this service?](#what-is-your-suggested-tech-stack--architecture-for-this-service)
 - [Why Polling Mechanism](#why-polling-mechanism)
 
 ## Setup
 
-1. **Clone the Repository**
+1. Clone the Repository
 
    ```bash
    git clone https://github.com/yourusername/solana-transactions-monitor.git
-   cd solana-transactions-monitor
+   cd solana-backend
    ```
 
 2. **Install Dependencies**
@@ -52,6 +52,13 @@ A NestJS backend service that monitors and processes real-time transactions from
   ```dotenv
   HELIUS_API_KEY=your_helius_api_key
   ```
+
+- **Output of processed data and history in real time on terminal log**
+
+  After starting the dev server and inputting the desired wallet address, you can see the output in the terminal log in real time
+  
+<img width="729" alt="image" src="https://github.com/user-attachments/assets/f5682ccf-9ca2-4547-9290-593b9b33e13e">
+
 
 ## Usage
 
