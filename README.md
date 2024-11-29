@@ -1,7 +1,7 @@
 ```markdown
 # For Solana Backend service
 
-A NestJS backend service that monitors and processes real-time transactions from the Solana blockchain using Helius RPC.
+A NestJS backend service that reads from the Solana blockchain, focusing on comprehensive transaction analysis and data retrieval.
 
 ## Table of Contents
 
@@ -55,20 +55,11 @@ A NestJS backend service that monitors and processes real-time transactions from
 
 - **Output of processed data and history in real time on terminal log**
 
-  After starting the dev server and inputting the desired wallet address, you can see the output in the terminal log in real time
+  After starting the dev server and inputting the desired wallet address, you can see the output in the terminal log
   
 <img width="729" alt="image" src="https://github.com/user-attachments/assets/f5682ccf-9ca2-4547-9290-593b9b33e13e">
 
 
-## Usage
-
-- **Real-Time Transactions**
-
-  The service logs all processed real-time transactions and their history directly in the terminal.
-
-- **Polling Mechanism**
-
-  A polling mechanism is implemented to periodically retrieve and process transaction data from Helius RPC.
 
 ## Polling Mechanism
 
@@ -101,10 +92,9 @@ The service uses a polling mechanism to fetch and process transactions at regula
 
 - **Backend Framework:** NestJS for building scalable and maintainable server-side applications.
 - **Blockchain Interaction:** Helius RPC for accessing Solana blockchain data.
-- **Database:** PostgreSQL or MongoDB for storing processed transactions and metadata.
+- **Database:** PostgreSQL for storing processed transactions and metadata.
 - **Message Queue:** RabbitMQ or Apache Kafka for handling transaction processing asynchronously.
 - **Real-Time Communication:** WebSockets (e.g., Socket.io) for pushing real-time updates to clients.
-- **Authentication:** JWT or OAuth2 for securing API endpoints.
 - **Monitoring:** Prometheus and Grafana for system monitoring and visualization.
 - **Containerization:** Docker for deploying and managing service instances.
 
